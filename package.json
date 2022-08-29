@@ -2,9 +2,10 @@
     "name": "@abyssers/jit",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "dist/index.js",
     "scripts": {
-        "prepare": "husky install"
+        "prepare": "husky install",
+        "build": "tsc"
     },
     "repository": {
         "type": "git",
