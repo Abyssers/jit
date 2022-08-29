@@ -11,20 +11,18 @@ module.exports = (() => {
     };
 
     function assert(condition, message) {
-        function err(message) {
-            throw new Error(message);
-        }
-
         if (message !== undefined) {
             if (typeof condition === "function") {
                 condition = condition();
             }
             if (!condition && typeof message === "string") {
-                err(message);
+                throw new Error(message);
             }
         } else {
             if (typeof condition === "function") {
-                condition(err);
+                condition(message => {
+                    throw new Error(message);
+                });
             }
         }
     }
