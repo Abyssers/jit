@@ -8,11 +8,12 @@ module.exports = {
         node: true,
     },
 
-    extends: ["eslint:recommended", "plugin:prettier/recommended"],
+    plugins: ["@typescript-eslint"],
+    extends: ["eslint:recommended", "plugin:prettier/recommended", "plugin:@typescript-eslint/recommended"],
 
-    parser: "@babel/eslint-parser",
+    parser: "@typescript-eslint/parser",
     parserOptions: {
-        requireConfigFile: false, // for @babel/eslint-parser
+        // requireConfigFile: false, // for @babel/eslint-parser
         ecmaVersion: 6,
     },
 

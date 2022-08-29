@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "target": "ES2015",
+        "outDir": "./dist",
+        "module": "commonjs",
+        "declaration": true,
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "preserveConstEnums": true,
+        "sourceMap": false
+    }
+}
