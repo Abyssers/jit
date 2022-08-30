@@ -3,6 +3,14 @@ import { git } from "./git";
 import { assert, JitErrorMessageGenerator as JEMG } from "./error";
 
 export class Jit {
+    static #instance: Jit = undefined;
+    static instance(): Jit {
+        if (this.#instance === undefined) {
+            this.#instance = new Jit();
+        }
+        return this.#instance;
+    }
+
     #repos: Map<string, Repo>;
 
     constructor() {

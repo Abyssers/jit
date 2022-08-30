@@ -1,3 +1,3 @@
 import { Jit } from "./jit";
 
-export default new Jit();
+export default Jit.instance();
