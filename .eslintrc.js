@@ -13,7 +13,6 @@ module.exports = {
 
     parser: "@typescript-eslint/parser",
     parserOptions: {
-        // requireConfigFile: false, // for @babel/eslint-parser
         ecmaVersion: 6,
     },
 
