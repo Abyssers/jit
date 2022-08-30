@@ -1,0 +1,28 @@
+name: publishment
+on:
+    pull_request_target:
+        types:
+            - closed
+        branches:
+            - main
+        paths:
+            - "package.json"
+jobs:
+    publish:
+        if: ${{ github.event.pull_request.merged == true }}
+        runs-on: ubuntu-latest
+        steps:
+            - name: "[Download Repo]"
+              uses: actions/checkout@v2
+              with:
+                  ref: main
+            - name: "[Setup NodeJs]"
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 16
+            - name: "[Install Dependencies]"
+              run: sudo npm install --unsafe-perm=true --allow-root --ignore-scripts
+            - name: "[Build]"
+              run: npm run build
+            - name: "[Publish 2 NPM]"
+              run:
