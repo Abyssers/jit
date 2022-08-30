@@ -14,7 +14,7 @@ export class Repo {
         assert(isAbsolute(root), JEMG.notAbsolute(root));
         assert(existsSync(root), JEMG.notExist(root));
         assert(err => {
-            const { status, stderr } = git.call({ cwd: this.#cwd }, "status");
+            const { status, stderr } = git({ cwd: this.#cwd }, "status");
             if (status !== 0) err(stderr);
         });
 
@@ -23,6 +23,6 @@ export class Repo {
     }
 
     log(...args: string[]): SpawnSyncReturns<string> {
-        return git.call({ cwd: this.#cwd }, "log", ...args);
+        return git({ cwd: this.#cwd }, "log", ...args);
     }
 }

@@ -15,7 +15,7 @@ export class Jit {
 
     constructor() {
         assert(err => {
-            const { status, stderr } = git("-v");
+            const { status, stderr } = git({ cwd: __dirname }, "", "-v");
             if (status !== 0) err(stderr);
         });
 
