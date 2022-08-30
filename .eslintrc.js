@@ -23,6 +23,7 @@ module.exports = {
         "function-paren-newline": ["error", "multiline"],
         "no-constant-condition": "off",
         "no-undef": "warn",
+        "no-var": "warn",
         "no-unused-vars": "warn",
         "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
         "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
