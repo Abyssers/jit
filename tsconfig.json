@@ -9,5 +9,6 @@
         "preserveConstEnums": true,
         "experimentalDecorators": true,
         "sourceMap": false
-    }
+    },
+    "include": ["src/*.ts", "src/**/*.ts"]
 }
