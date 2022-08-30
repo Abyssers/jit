@@ -1,7 +1,5 @@
 import { spawnSync, SpawnSyncOptions, SpawnSyncOptionsWithStringEncoding, SpawnSyncReturns } from "node:child_process";
 
-type NullCommand = "";
-
 type MainPorcelainCommand =
     | "add"
     | "am"
@@ -152,9 +150,12 @@ type LowLevelCommand =
     | "sh-setup"
     | "stripspace";
 
+export type NullCommand = "";
+export type GitCommand = MainPorcelainCommand | AncillaryCommand | InteractingCommand | LowLevelCommand;
+
 export function git(
     options: SpawnSyncOptions,
-    command: NullCommand | MainPorcelainCommand | AncillaryCommand | InteractingCommand | LowLevelCommand = "",
+    command: NullCommand | GitCommand = "",
     ...args: string[]
 ): SpawnSyncReturns<string> {
     options = Object.assign({ encoding: "utf8" }, options);

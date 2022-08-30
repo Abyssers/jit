@@ -1,7 +1,7 @@
 import { existsSync } from "node:fs";
-import { isAbsolute } from "node:path";
+import { isAbsolute, resolve } from "node:path";
 import { SpawnSyncReturns } from "node:child_process";
-import { git } from "./git";
+import { git, NullCommand, GitCommand } from "./git";
 import { assert, JitErrorMessageGenerator as JEMG } from "./error";
 
 export class Repo {
@@ -22,7 +22,22 @@ export class Repo {
         this.#cwd = root;
     }
 
-    log(...args: string[]): SpawnSyncReturns<string> {
-        return git({ cwd: this.#cwd }, "log", ...args);
+    cd(...paths: string[]): Repo {
+        assert(
+            Array.prototype.every.call(paths, (path: string) => typeof path === "string"),
+            JEMG.notStrs("paths")
+        );
+        this.#cwd = resolve(this.#cwd, ...paths);
+        return this;
+    }
+
+    do(command: NullCommand | GitCommand, ...args: string[]): SpawnSyncReturns<string> {
+        assert(command !== undefined, JEMG.notDefined("command"));
+        assert(typeof command === "string", JEMG.notStr("command"));
+        assert(
+            Array.prototype.every.call(args, (arg: string) => typeof arg === "string"),
+            JEMG.notStrs("args")
+        );
+        return git({ cwd: this.#cwd }, command, ...args);
     }
 }

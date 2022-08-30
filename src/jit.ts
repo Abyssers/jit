@@ -24,7 +24,7 @@ export class Jit {
 
     repo(path: string): Repo {
         assert(path !== undefined, JEMG.notDefined("path"));
-        assert(!!path, JEMG.notStr("path"));
+        assert(typeof path === "string", JEMG.notStr("path"));
         if (this.#repos.has(path)) {
             return this.#repos.get(path);
         } else {
