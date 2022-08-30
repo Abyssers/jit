@@ -1,6 +1,6 @@
 {
     "name": "@abyssers/jit",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "",
     "main": "dist/index.js",
     "scripts": {
@@ -15,7 +15,7 @@
         "git",
         "nodejs"
     ],
-    "author": "Abyssers",
+    "author": "Morilence",
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/Abyssers/jit/issues"
