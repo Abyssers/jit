@@ -1,3 +1,3 @@
 import { Jit } from "./jit";
 
-export default Jit.instance();
+export const jit: Jit = Jit.instance();
