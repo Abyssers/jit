@@ -11,6 +11,7 @@ jobs:
     publish:
         if: ${{ github.event.pull_request.merged == true }}
         runs-on: ubuntu-latest
+        environment: ABYSSERS_PUBLISH_ENV
         steps:
             - name: "[Download Repo]"
               uses: actions/checkout@v2
@@ -25,4 +26,8 @@ jobs:
             - name: "[Build]"
               run: npm run build
             - name: "[Publish 2 NPM]"
-              run:
+              uses: JS-DevTools/npm-publish@v1
+              with:
+                  token: ${{ secrets.MORILENCE_NPM_TOKEN }}
+                  access: public
+                  tag: alpha
