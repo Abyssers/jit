@@ -1,7 +1,7 @@
 {
     "name": "@abyssers/jit",
     "version": "1.0.1",
-    "description": "",
+    "description": "A lightweight nodejs-client of Git.",
     "main": "dist/index.js",
     "scripts": {
         "prepare": "husky install",
