@@ -31,4 +31,5 @@ jobs:
               with:
                   token: ${{ secrets.MORILENCE_NPM_TOKEN }}
                   access: public
-                  tag: alpha
+                  greater-version-only: true
+                  tag: beta
