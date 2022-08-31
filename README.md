@@ -15,13 +15,13 @@ A lightweight nodejs-client of Git.
 Install:
 
 ```sh
-npm install @abyssers/jit
+npm install @abysser/jit
 ```
 
 Import:
 
 ```js
-const { jit } = require("@abyssers/jit");
+const { jit } = require("@abysser/jit");
 ```
 
 ## Usage

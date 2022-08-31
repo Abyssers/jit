@@ -1,5 +1,5 @@
 {
-    "name": "@abyssers/jit",
+    "name": "@abysser/jit",
     "version": "1.0.1",
     "description": "A lightweight nodejs-client of Git.",
     "main": "dist/index.js",
