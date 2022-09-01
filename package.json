@@ -1,6 +1,6 @@
 {
     "name": "@abysser/jit",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "A lightweight nodejs-client of Git.",
     "main": "dist/index.js",
     "scripts": {
