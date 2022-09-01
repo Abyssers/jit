@@ -1,5 +1,5 @@
 import { existsSync } from "node:fs";
-import { isAbsolute, resolve } from "node:path";
+import { isAbsolute, relative, resolve } from "node:path";
 import { SpawnSyncReturns } from "node:child_process";
 import { git, NullCommand, GitCommand } from "./git";
 import { assert, JitErrorMessageGenerator as JEMG } from "./error";
@@ -27,7 +27,12 @@ export class Repo {
             Array.prototype.every.call(paths, (path: string) => typeof path === "string"),
             JEMG.notStrs("paths")
         );
-        this.#cwd = resolve(this.#cwd, ...paths);
+        const target = resolve(this.#cwd, ...paths);
+        assert(
+            !(relative(this.#root, target) === "" || relative(this.#root, target).startsWith("..")),
+            JEMG.outsideOfRoot(target)
+        );
+        this.#cwd = target;
         return this;
     }
 

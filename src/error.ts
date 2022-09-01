@@ -37,4 +37,5 @@ export const JitErrorMessageGenerator = {
     notDefined: (name: string) => `"${name}" is not defined.`,
     notAbsolute: (path: string) => `"${path}" is not an absolute path.`,
     notExist: (path: string) => `"${path}" does not exist.`,
+    outsideOfRoot: (path: string) => `"${path}" is outside of the current repository's root.`,
 };
