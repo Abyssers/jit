@@ -22,6 +22,14 @@ export class Repo {
         this.#cwd = root;
     }
 
+    get root(): string {
+        return this.#root;
+    }
+
+    get cwd(): string {
+        return this.#cwd;
+    }
+
     cd(...paths: string[]): Repo {
         assert(
             Array.prototype.every.call(paths, (path: string) => typeof path === "string"),
