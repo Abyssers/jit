@@ -1,12 +1,9 @@
-type JitError = Error;
-
-interface JitErrorConstructor extends ErrorConstructor {
-    new (message?: string): JitError;
-    (message?: string): JitError;
-    readonly prototype: JitError;
+class JitError extends Error {
+    constructor(message: string) {
+        super(message);
+        this.name = "JitError";
+    }
 }
-
-export var JitError: JitErrorConstructor;
 
 export function assert(condition: boolean, message: string): void;
 export function assert(condition: () => boolean, message: string): void;
