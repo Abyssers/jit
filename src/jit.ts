@@ -1,9 +1,9 @@
+import { isAbsolute, resolve } from "node:path";
 import { Repo } from "./repo";
 import { git } from "./git";
 import { assert, JitErrorMessageGenerator as JEMG } from "./error";
-import { isAbsolute, resolve } from "node:path";
 
-export class Jit {
+class Jit {
     static #instance: Jit = undefined;
     static instance(): Jit {
         if (this.#instance === undefined) {
@@ -23,6 +23,12 @@ export class Jit {
         this.#repos = new Map();
     }
 
+    version(): string {
+        const { status, stdout, stderr } = git({ cwd: __dirname }, "", "-v");
+        assert(status === 0, stderr);
+        return /(\d+.)*\d+/i.exec(stdout)[0];
+    }
+
     repo(path: string): Repo {
         assert(path !== undefined, JEMG.notDefined("path"));
         assert(typeof path === "string", JEMG.notStr("path"));
@@ -37,3 +43,5 @@ export class Jit {
         }
     }
 }
+
+export const jit: Jit = Jit.instance();
