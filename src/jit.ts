@@ -23,7 +23,7 @@ class Jit {
         this.#repos = new Map();
     }
 
-    version(): string {
+    get version(): string {
         const { status, stdout, stderr } = git({ cwd: __dirname }, "", "-v");
         assert(status === 0, stderr);
         return /(\d+.)*\d+/i.exec(stdout)[0];
