@@ -1,9 +1,12 @@
 {
     "name": "@abysser/jit",
-    "version": "1.0.5",
+    "version": "1.1.0",
     "description": "A lightweight nodejs-client of Git.",
     "main": "dist/index.js",
     "type": "commonjs",
+    "engines": {
+        "node": ">=10.24.1"
+    },
     "scripts": {
         "prepare": "husky install",
         "build": "npx rollup -c"
