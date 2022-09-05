@@ -6,7 +6,7 @@
     "type": "commonjs",
     "scripts": {
         "prepare": "husky install",
-        "build": "tsc"
+        "build": "npx rollup -c"
     },
     "repository": {
         "type": "git",
@@ -25,7 +25,6 @@
     "devDependencies": {
         "@commitlint/cli": "^17.0.3",
         "@commitlint/config-conventional": "^17.0.3",
-        "@rollup/plugin-eslint": "^8.0.2",
         "@rollup/plugin-json": "^4.1.0",
         "@rollup/plugin-strip": "^2.1.0",
         "@rollup/plugin-typescript": "^8.4.0",

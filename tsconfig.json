@@ -1,8 +1,7 @@
 {
     "compilerOptions": {
         "target": "ES2015",
-        "outDir": "./dist",
-        "module": "CommonJS",
+        "outDir": "dist",
         "moduleResolution": "node",
         "declaration": true,
         "noImplicitAny": true,
