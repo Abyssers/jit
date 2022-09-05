@@ -27,5 +27,7 @@ module.exports = {
         "no-unused-vars": "warn",
         "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
         "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
+
+        "@typescript-eslint/no-var-requires": "off",
     },
 };
