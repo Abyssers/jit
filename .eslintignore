@@ -3,3 +3,4 @@ node_modules/
 !.prettierrc.js
 !.lintstagedrc.js
 !commitlint.config.js
+!rollup.config.js
