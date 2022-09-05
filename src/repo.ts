@@ -13,10 +13,8 @@ export class Repo {
         assert(typeof root === "string", JEMG.notStr("root"));
         assert(isAbsolute(root), JEMG.notAbsolute(root));
         assert(existsSync(root), JEMG.notExist(root));
-        assert(err => {
-            const { status, stderr } = git({ cwd: this.#cwd }, "status");
-            if (status !== 0) err(stderr);
-        });
+        const { status, stderr } = git({ cwd: this.#cwd }, "status");
+        assert(status === 0, stderr);
 
         this.#root = root;
         this.#cwd = root;
@@ -28,6 +26,12 @@ export class Repo {
 
     get cwd(): string {
         return this.#cwd;
+    }
+
+    get branch(): string {
+        const { status, stdout, stderr } = git({ cwd: this.#cwd }, "branch", "--show-current");
+        assert(status === 0, stderr);
+        return stdout.trim();
     }
 
     cd(...paths: string[]): Repo {
