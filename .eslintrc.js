@@ -24,10 +24,11 @@ module.exports = {
         "no-constant-condition": "off",
         "no-undef": "warn",
         "no-var": "warn",
-        "no-unused-vars": "warn",
+        "no-unused-vars": "off",
         "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
         "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
 
         "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/no-unused-vars": "warn",
     },
 };
