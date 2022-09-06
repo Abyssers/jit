@@ -28,7 +28,7 @@ export function assert(
     }
 }
 
-export const errmsgs = {
+export const errmsgs: { [key: string]: (...args: string[]) => string } = {
     notStr: (name: string) => `"${name}" is not of type string.`,
     notStrs: (name: string) => `"${name}" are not all of type string.`,
     notDefined: (name: string) => `"${name}" is not defined.`,
