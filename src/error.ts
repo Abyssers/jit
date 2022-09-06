@@ -28,7 +28,7 @@ export function assert(
     }
 }
 
-export const JitErrorMessageGenerator = {
+export const errmsgs = {
     notStr: (name: string) => `"${name}" is not of type string.`,
     notStrs: (name: string) => `"${name}" are not all of type string.`,
     notDefined: (name: string) => `"${name}" is not defined.`,
