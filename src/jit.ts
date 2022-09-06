@@ -1,7 +1,7 @@
 import { isAbsolute, resolve } from "node:path";
 import { Repo } from "./repo";
 import { git } from "./git";
-import { assert, JitErrorMessageGenerator as JEMG } from "./error";
+import { assert, errmsgs } from "./error";
 
 class Jit {
     static #instance: Jit = undefined;
@@ -30,9 +30,9 @@ class Jit {
     }
 
     repo(path: string): Repo {
-        assert(path !== undefined, JEMG.notDefined("path"));
-        assert(typeof path === "string", JEMG.notStr("path"));
-        assert(isAbsolute(path), JEMG.notAbsolute(path));
+        assert(path !== undefined, errmsgs.notDefined("path"));
+        assert(typeof path === "string", errmsgs.notStr("path"));
+        assert(isAbsolute(path), errmsgs.notAbsolute(path));
         path = resolve(path);
         if (this.#repos.has(path)) {
             return this.#repos.get(path);
