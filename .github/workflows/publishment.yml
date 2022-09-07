@@ -40,7 +40,6 @@ jobs:
                   access: public
                   check-version: true
                   tag: latest
-
     notify:
         needs: publish
         if: ${{ needs.publish.outputs.type != 'none' }}
