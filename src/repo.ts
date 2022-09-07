@@ -2,6 +2,7 @@ import { existsSync } from "node:fs";
 import { isAbsolute, relative, resolve } from "node:path";
 import { SpawnSyncReturns } from "node:child_process";
 import { git, NullCommand, GitCommand } from "./git";
+import { GitArg, GitCommandArg } from "./arg";
 import { formatters, Formatter } from "./format";
 import { assert, errmsgs } from "./error";
 
@@ -30,7 +31,13 @@ export class Repo {
     }
 
     get branch(): string {
-        const { status, stdout, stderr } = git({ cwd: this.#cwd }, "branch", "--show-current");
+        const { status, stdout, stderr } = git({ cwd: this.#cwd }, "branch", ["--show-current"]);
+        assert(status === 0, stderr);
+        return stdout.trim();
+    }
+
+    get head(): string {
+        const { status, stdout, stderr } = git({ cwd: this.#cwd }, "rev-parse", ["HEAD"]);
         assert(status === 0, stderr);
         return stdout.trim();
     }
@@ -51,15 +58,20 @@ export class Repo {
 
     do(
         command: NullCommand | GitCommand,
-        ...args: string[]
+        args: GitArg[] | GitCommandArg[] = [],
+        ...params: string[]
     ): Pick<SpawnSyncReturns<string>, "pid" | "stdout"> & { formatted?: ReturnType<Formatter> } {
         assert(command !== undefined, errmsgs.notDefined("command"));
         assert(typeof command === "string", errmsgs.notStr("command"));
         assert(
-            Array.prototype.every.call(args, (arg: string) => typeof arg === "string"),
+            Array.prototype.every.call(args, (arg: GitArg | GitCommandArg) => typeof arg === "string"),
             errmsgs.notStrs("args")
         );
-        const { pid, status, stdout, stderr } = git({ cwd: this.#cwd }, command, ...args);
+        assert(
+            Array.prototype.every.call(params, (param: string) => typeof param === "string"),
+            errmsgs.notStrs("params")
+        );
+        const { pid, status, stdout, stderr } = git({ cwd: this.#cwd }, command, args, ...params);
         assert(status === 0, stderr);
         return {
             pid,
@@ -67,7 +79,7 @@ export class Repo {
             ...(Object.keys(formatters).length === 0 || !Object.prototype.hasOwnProperty.call(formatters, command)
                 ? {}
                 : {
-                      formatted: formatters[command].call(null),
+                      formatted: formatters[command].call(null, stdout, args, ...params),
                   }),
         };
     }

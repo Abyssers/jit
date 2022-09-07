@@ -1,4 +1,5 @@
 import { spawnSync, SpawnSyncOptions, SpawnSyncOptionsWithStringEncoding, SpawnSyncReturns } from "node:child_process";
+import { GitArg, GitCommandArg } from "./arg";
 
 type MainPorcelainCommand =
     | "add"
@@ -156,15 +157,20 @@ export type GitCommand = MainPorcelainCommand | AncillaryCommand | InteractingCo
 export function git(
     options: SpawnSyncOptions,
     command: NullCommand | GitCommand = "",
-    ...args: string[]
+    args: GitArg[] | GitCommandArg[] = [],
+    ...params: string[]
 ): SpawnSyncReturns<string> {
     options = Object.assign({ encoding: "utf8" }, options);
+    params = Array.prototype.flat
+        .call(params, Infinity)
+        .filter((param: string) => typeof param === "string")
+        .map((param: string) => param.trim());
     return spawnSync(
         "git",
         Array.prototype.flat
             .call(command === "" ? args : [command, ...args], Infinity)
-            .filter((arg: string) => typeof arg === "string")
-            .map((arg: string) => arg.trim()),
+            .filter((arg: GitArg | GitCommandArg) => typeof arg === "string")
+            .map((arg: GitArg | GitCommandArg) => arg.trim().replace(/<\w+(-\w+)*>/g, () => params.shift())),
         options as SpawnSyncOptionsWithStringEncoding
     );
 }

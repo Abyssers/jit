@@ -20,7 +20,7 @@ module.exports = {
         "brace-style": ["error", "1tbs", { allowSingleLine: true }],
         "comma-spacing": ["error", { before: false, after: true }],
         "array-bracket-spacing": ["error", "never"],
-        "function-paren-newline": ["error", "multiline"],
+        "function-paren-newline": "off",
         "no-constant-condition": "off",
         "no-undef": "warn",
         "no-var": "warn",

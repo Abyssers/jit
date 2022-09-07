@@ -32,13 +32,28 @@ Create or index a Repo object:
 const repo = jit.repo(/* absolute path of a local repository */);
 ```
 
-Running the git command:
+Get basic infos of the repo:
 
 ```js
-repo.do("log", "--oneline");
+console.log(repo.root);
+console.log(repo.cwd);
+console.log(repo.branch);
+console.log(repo.head);
 ```
 
-> do(command: "" | GitCommand, ...args: string[]): SpawnSyncReturns\<string\>
+Run the git command:
+
+```js
+repo.do("log", ["--oneline"]);
+```
+
+Transfer parameters by replacing \<xxx\>:
+
+```js
+repo.do("log", ["--pretty=fuller", "--", "<path>"], "src/index.ts");
+```
+
+> do(command: NullCommand | GitCommand, args: GitArg[] | GitCommandArg[] = [], ...params: string[]): Pick<SpawnSyncReturns<string>, "pid" | "stdout"> & { formatted?: ReturnType<Formatter> }
 
 Switch the current working directory:
 
@@ -51,7 +66,7 @@ repo.cd("src/routes");
 Called in a chain:
 
 ```js
-repo.cd("src").cd("../").do("add", "--all");
+repo.cd("src").cd("../").do("add", ["--all"]);
 ```
 
 ## License
