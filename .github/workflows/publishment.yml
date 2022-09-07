@@ -15,6 +15,10 @@ jobs:
         if: ${{ github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request_target' && github.event.pull_request.merged == true) }}
         runs-on: ubuntu-latest
         environment: ABYSSERS_PUBLISH_ENV
+        outputs:
+            type: ${{ steps.final.outputs.type }}
+            version: ${{ steps.final.outputs.version }}
+            old-version: ${{ steps.final.outputs.old-version }}
         steps:
             - name: "[Download Repo]"
               uses: actions/checkout@v2
@@ -36,10 +40,6 @@ jobs:
                   access: public
                   check-version: true
                   tag: latest
-        outputs:
-            type: ${{ steps.final.outputs.type }}
-            version: ${{ steps.final.outputs.version }}
-            old-version: ${{ steps.final.outputs.old-version }}
 
     notify:
         needs: publish
