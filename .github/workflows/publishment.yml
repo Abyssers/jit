@@ -46,6 +46,8 @@ jobs:
         if: ${{ jobs.publish.outputs.type != 'none' }}
         runs-on: ubuntu-latest
         environment: ABYSSERS_NOTIFY_ENV
+        outputs:
+            type: ${{ jobs.publish.outputs.type }}
         steps:
             - name: "[Notify Users of Jit Updates]"
               uses: peter-evans/repository-dispatch@v2
