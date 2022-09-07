@@ -110,7 +110,7 @@ export type LogCommandArg =
     | "--merge"
     | "--boundary";
 
-export type branchCommandArg =
+export type BranchCommandArg =
     | "-d"
     | "--delete"
     | "-D"
@@ -171,4 +171,4 @@ export type branchCommandArg =
     | "<oldbranch>"
     | "<newbranch>";
 
-export type GitCommandArg = "HEAD" | LogCommandArg | branchCommandArg;
+export type GitCommandArg = "HEAD" | LogCommandArg | BranchCommandArg;
