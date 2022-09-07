@@ -161,13 +161,16 @@ export function git(
     ...params: string[]
 ): SpawnSyncReturns<string> {
     options = Object.assign({ encoding: "utf8" }, options);
-    params = Array.prototype.flat.call(params, Infinity).filter((param: string) => typeof param === "string");
+    params = Array.prototype.flat
+        .call(params, Infinity)
+        .filter((param: string) => typeof param === "string")
+        .map((param: string) => param.trim());
     return spawnSync(
         "git",
         Array.prototype.flat
             .call(command === "" ? args : [command, ...args], Infinity)
             .filter((arg: GitArg | GitCommandArg) => typeof arg === "string")
-            .map((arg: GitArg | GitCommandArg) => arg.trim().replace(/<\w+>/g, () => params.shift())),
+            .map((arg: GitArg | GitCommandArg) => arg.trim().replace(/<\w+(-\w+)*>/g, () => params.shift())),
         options as SpawnSyncOptionsWithStringEncoding
     );
 }
