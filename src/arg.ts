@@ -1,4 +1,4 @@
-type LogCommandArg =
+export type LogCommandArg =
     | "--follow"
     | "--no-decorate"
     | "--decorate"
@@ -18,7 +18,9 @@ type LogCommandArg =
     | "-L<start>,<end>:<file>"
     | "-L:<funcname>:<file>"
     | "-L:<funcname>:<file>"
+    | "<revision-range>"
     | "--"
+    | "<path>"
     /* Commit Limiting */
     | "-<number>"
     | "-n <number>"
@@ -79,7 +81,7 @@ type LogCommandArg =
     | "--merge"
     | "--boundary";
 
-type branchCommandArg =
+export type branchCommandArg =
     | "-d"
     | "--delete"
     | "-D"
@@ -120,17 +122,24 @@ type branchCommandArg =
     | "--track=inherit"
     | "--no-track"
     | "--recurse-submodules"
-    | "--set-upstream"
-    | "-u"
+    | "-u <upstream>"
     | "--set-upstream-to=<upstream>"
     | "--unset-upstream"
     | "--edit-description"
     | "--contains"
+    | "--contains <commit>"
     | "--no-contains"
+    | "--no-contains <commit>"
     | "--merged"
+    | "--merged <commit>"
     | "--no-merged"
+    | "--no-merged <commit>"
     | "--sort=<key>"
-    | "--points-at"
-    | "--format";
+    | "--points-at <object>"
+    | "--format <format>"
+    | "<branchname>"
+    | "<start-point>"
+    | "<oldbranch>"
+    | "<newbranch>";
 
-export type GitCommandArg = LogCommandArg | branchCommandArg;
+export type GitCommandArg = "HEAD" | LogCommandArg | branchCommandArg;
