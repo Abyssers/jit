@@ -6,6 +6,11 @@ import { GitArg, GitCommandArg } from "./arg";
 import { formatters, Formatter } from "./format";
 import { assert, errmsgs } from "./error";
 
+interface User {
+    name: string;
+    email: string;
+}
+
 export class Repo {
     #root: string;
     #cwd: string;
@@ -40,6 +45,25 @@ export class Repo {
         const { status, stdout, stderr } = git({ cwd: this.#cwd }, "rev-parse", ["HEAD"]);
         assert(status === 0, stderr);
         return stdout.trim();
+    }
+
+    get user(): User {
+        const {
+            status: nstat,
+            stdout: nout,
+            stderr: nerr,
+        } = git({ cwd: this.#cwd }, "config", ["<name>"], "user.name");
+        assert(nstat === 0, nerr);
+        const {
+            status: estat,
+            stdout: eout,
+            stderr: eerr,
+        } = git({ cwd: this.#cwd }, "config", ["<name>"], "user.email");
+        assert(estat === 0, eerr);
+        return {
+            name: nout.trim(),
+            email: eout.trim(),
+        };
     }
 
     cd(...paths: string[]): Repo {
