@@ -318,6 +318,51 @@ export type LogCommandArg =
     | "--line-prefix=<prefix>"
     | "--ita-invisible-in-index";
 
+export type ConfigCommandArg =
+    | "--replace-all"
+    | "--add"
+    | "--get"
+    | "--get-all"
+    | "--get-regexp"
+    | "--get-urlmatch <name> <URL>"
+    | "--global"
+    | "--system"
+    | "--local"
+    | "--worktree"
+    | "-f <config-file>"
+    | "--file <config-file>"
+    | "--blob <blob>"
+    | "--remove-section"
+    | "--rename-section"
+    | "--unset"
+    | "--unset-all"
+    | "-l"
+    | "--list"
+    | "--fixed-value"
+    | "--type <type>"
+    | "--bool"
+    | "--int"
+    | "--bool-or-int"
+    | "--path"
+    | "--expiry-date"
+    | "--no-type"
+    | "-z"
+    | "--null"
+    | "--name-only"
+    | "--show-origin"
+    | "--show-scope"
+    | "--get-colorbool <name>"
+    | "--get-colorbool <name> <stdout-is-tty>"
+    | "--get-color <name>"
+    | "--get-color <name> <default>"
+    | "-e"
+    | "--edit"
+    | "--includes"
+    | "--no-includes"
+    | "--default <value>"
+    | "<name>"
+    | "<value>";
+
 export type BranchCommandArg =
     | "-d"
     | "--delete"
@@ -379,4 +424,4 @@ export type BranchCommandArg =
     | "<oldbranch>"
     | "<newbranch>";
 
-export type GitCommandArg = "HEAD" | LogCommandArg | BranchCommandArg;
+export type GitCommandArg = "HEAD" | LogCommandArg | ConfigCommandArg | BranchCommandArg;
