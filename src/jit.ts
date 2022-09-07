@@ -16,7 +16,7 @@ class Jit {
 
     constructor() {
         assert(err => {
-            const { status, stderr } = git({ cwd: __dirname }, "", "-v");
+            const { status, stderr } = git({ cwd: __dirname }, "", ["-v"]);
             if (status !== 0) err(stderr);
         });
 
@@ -24,7 +24,7 @@ class Jit {
     }
 
     get version(): string {
-        const { status, stdout, stderr } = git({ cwd: __dirname }, "", "-v");
+        const { status, stdout, stderr } = git({ cwd: __dirname }, "", ["-v"]);
         assert(status === 0, stderr);
         return /(\d+.)*\d+/i.exec(stdout)[0];
     }
