@@ -9,7 +9,7 @@
     },
     "scripts": {
         "prepare": "husky install",
-        "build": "npx rollup -c"
+        "build": "rollup -c"
     },
     "repository": {
         "type": "git",
