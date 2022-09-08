@@ -7,9 +7,15 @@
     "engines": {
         "node": ">=10.24.1"
     },
+    "files": [
+        "dist",
+        "LICENSE",
+        "package.json",
+        "README.md"
+    ],
     "scripts": {
         "prepare": "husky install",
-        "build": "npx rollup -c"
+        "build": "rollup -c"
     },
     "repository": {
         "type": "git",
