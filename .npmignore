@@ -1,9 +1,0 @@
-node_modules/
-src/
-test/
-.*
-.**.js
-.**.{json,jsonc}
-rollup.config.js
-commitlint.config.js
-tsconfig.json

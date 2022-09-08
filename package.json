@@ -7,6 +7,12 @@
     "engines": {
         "node": ">=10.24.1"
     },
+    "files": [
+        "dist",
+        "LICENSE",
+        "package.json",
+        "README.md"
+    ],
     "scripts": {
         "prepare": "husky install",
         "build": "rollup -c"
