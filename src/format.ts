@@ -19,13 +19,13 @@ export const formatters: { [key: string]: Formatter } = {
         } else if ((args as GitCommandArg[]).includes("--pretty=reference")) {
             // ...
         } else {
-            formatted = stdout
+            formatted = ("\n" + stdout)
                 .split("commit ")
                 .filter(item => item !== "")
                 .map(text => {
                     const commit = {
                         hash: /[a-z0-9]+/.exec(text)[0],
-                        titleLine: /\n{2} {4}.+/.exec(text)[0].replace(/\n{2} {4}/, ""),
+                        titleLine: /\n{2} {4}[^\n]+/.exec(text)[0].replace(/\n{2} {4}/, ""),
                         ...(/\nMerge: [a-z0-9]+ [a-z0-9]+\n/.test(text)
                             ? {
                                   merge: /Merge: [a-z0-9]+ [a-z0-9]+/
