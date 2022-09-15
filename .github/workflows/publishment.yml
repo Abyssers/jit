@@ -50,6 +50,6 @@ jobs:
               uses: peter-evans/repository-dispatch@v2
               with:
                   token: ${{ secrets.MORILENCE_GENERAL_PAT }}
-                  repository: Abyssers/blog
+                  repository: Abyssers/matter-lint
                   event-type: jit-updated
                   client-payload: '{ "sha": "${{ github.sha }}", "ref": "${{ github.ref }}", "changes": "${{ github.event.changes }}", "version": "${{ needs.publish.outputs.version }}" }'
