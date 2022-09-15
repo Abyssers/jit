@@ -20,7 +20,7 @@ export const formatters: { [key: string]: Formatter } = {
             // ...
         } else {
             formatted = ("\n" + stdout)
-                .split("commit ")
+                .split("\ncommit ")
                 .filter(item => item !== "")
                 .map(text => {
                     const commit = {
