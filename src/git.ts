@@ -154,23 +154,27 @@ type LowLevelCommand =
 export type NullCommand = "";
 export type GitCommand = MainPorcelainCommand | AncillaryCommand | InteractingCommand | LowLevelCommand;
 
+export interface GitReturns extends SpawnSyncReturns<string> {
+    args: GitArg[] | GitCommandArg[] | string[];
+}
+
 export function git(
     options: SpawnSyncOptions,
     command: NullCommand | GitCommand = "",
-    args: GitArg[] | GitCommandArg[] = [],
+    args: GitArg[] | GitCommandArg[] | string[] = [],
     ...params: string[]
-): SpawnSyncReturns<string> {
+): GitReturns {
     options = Object.assign({ encoding: "utf8" }, options);
     params = Array.prototype.flat
         .call(params, Infinity)
         .filter((param: string) => typeof param === "string")
         .map((param: string) => param.trim());
-    return spawnSync(
-        "git",
-        Array.prototype.flat
-            .call(command === "" ? args : [command, ...args], Infinity)
-            .filter((arg: GitArg | GitCommandArg) => typeof arg === "string")
-            .map((arg: GitArg | GitCommandArg) => arg.trim().replace(/<\w+(-\w+)*>/g, () => params.shift())),
-        options as SpawnSyncOptionsWithStringEncoding
-    );
+    args = Array.prototype.flat
+        .call(command === "" ? args : [command, ...args], Infinity)
+        .filter((arg: GitArg | GitCommandArg | string) => typeof arg === "string")
+        .map((arg: GitArg | GitCommandArg | string) => arg.trim().replace(/<\w+(-\w+)*>/g, () => params.shift()));
+    return {
+        args,
+        ...spawnSync("git", args, options as SpawnSyncOptionsWithStringEncoding),
+    };
 }

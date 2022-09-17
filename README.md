@@ -53,7 +53,7 @@ Transfer parameters by replacing \<xxx\>:
 repo.do("log", ["--pretty=fuller", "--", "<path>"], "src/index.ts");
 ```
 
-> do(command: NullCommand | GitCommand, args: GitArg[] | GitCommandArg[] = [], ...params: string[]): Pick<SpawnSyncReturns<string>, "pid" | "stdout"> & { formatted?: ReturnType\<Formatter\> }
+> do(command: NullCommand | GitCommand, args: GitArg[] | GitCommandArg[] = [], ...params: string[]): Pick\<GitReturns, "pid" | "stdout"> & { formatted?: ReturnType\<Formatter\> }
 
 Switch the current working directory:
 

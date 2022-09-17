@@ -1,7 +1,6 @@
 import { existsSync } from "node:fs";
 import { isAbsolute, relative, resolve } from "node:path";
-import { SpawnSyncReturns } from "node:child_process";
-import { git, NullCommand, GitCommand } from "./git";
+import { git, NullCommand, GitCommand, GitReturns } from "./git";
 import { GitArg, GitCommandArg } from "./arg";
 import { formatters, Formatter } from "./format";
 import { assert, errmsgs } from "./error";
@@ -82,20 +81,20 @@ export class Repo {
 
     do(
         command: NullCommand | GitCommand,
-        args: GitArg[] | GitCommandArg[] = [],
+        args: GitArg[] | GitCommandArg[] | string[] = [],
         ...params: string[]
-    ): Pick<SpawnSyncReturns<string>, "pid" | "stdout"> & { formatted?: ReturnType<Formatter> } {
+    ): Pick<GitReturns, "pid" | "stdout"> & { formatted?: ReturnType<Formatter> } {
         assert(command !== undefined, errmsgs.notDefined("command"));
         assert(typeof command === "string", errmsgs.notStr("command"));
         assert(
-            Array.prototype.every.call(args, (arg: GitArg | GitCommandArg) => typeof arg === "string"),
+            Array.prototype.every.call(args, (arg: GitArg | GitCommandArg | string) => typeof arg === "string"),
             errmsgs.notStrs("args")
         );
         assert(
             Array.prototype.every.call(params, (param: string) => typeof param === "string"),
             errmsgs.notStrs("params")
         );
-        const { pid, status, stdout, stderr } = git({ cwd: this.#cwd }, command, args, ...params);
+        const { pid, status, stdout, stderr, args: processedArgs } = git({ cwd: this.#cwd }, command, args, ...params);
         assert(status === 0, stderr);
         return {
             pid,
@@ -103,7 +102,7 @@ export class Repo {
             ...(Object.keys(formatters).length === 0 || !Object.prototype.hasOwnProperty.call(formatters, command)
                 ? {}
                 : {
-                      formatted: formatters[command].call(null, stdout, args, ...params),
+                      formatted: formatters[command].call(null, stdout, processedArgs),
                   }),
         };
     }
