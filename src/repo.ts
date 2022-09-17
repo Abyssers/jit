@@ -81,13 +81,13 @@ export class Repo {
 
     do(
         command: NullCommand | GitCommand,
-        args: GitArg[] | GitCommandArg[] = [],
+        args: GitArg[] | GitCommandArg[] | string[] = [],
         ...params: string[]
     ): Pick<GitReturns, "pid" | "stdout"> & { formatted?: ReturnType<Formatter> } {
         assert(command !== undefined, errmsgs.notDefined("command"));
         assert(typeof command === "string", errmsgs.notStr("command"));
         assert(
-            Array.prototype.every.call(args, (arg: GitArg | GitCommandArg) => typeof arg === "string"),
+            Array.prototype.every.call(args, (arg: GitArg | GitCommandArg | string) => typeof arg === "string"),
             errmsgs.notStrs("args")
         );
         assert(

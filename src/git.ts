@@ -155,14 +155,14 @@ export type NullCommand = "";
 export type GitCommand = MainPorcelainCommand | AncillaryCommand | InteractingCommand | LowLevelCommand;
 
 export interface GitReturns extends SpawnSyncReturns<string> {
-    args: GitArg[] | GitCommandArg[];
+    args: GitArg[] | GitCommandArg[] | string[];
     params: string[];
 }
 
 export function git(
     options: SpawnSyncOptions,
     command: NullCommand | GitCommand = "",
-    args: GitArg[] | GitCommandArg[] = [],
+    args: GitArg[] | GitCommandArg[] | string[] = [],
     ...params: string[]
 ): GitReturns {
     options = Object.assign({ encoding: "utf8" }, options);
@@ -172,15 +172,11 @@ export function git(
         .map((param: string) => param.trim());
     args = Array.prototype.flat
         .call(command === "" ? args : [command, ...args], Infinity)
-        .filter((arg: GitArg | GitCommandArg) => typeof arg === "string")
-        .map((arg: GitArg | GitCommandArg) => arg.trim());
+        .filter((arg: GitArg | GitCommandArg | string) => typeof arg === "string")
+        .map((arg: GitArg | GitCommandArg | string) => arg.trim().replace(/<\w+(-\w+)*>/g, () => params.shift()));
     return {
         args,
         params,
-        ...spawnSync(
-            "git",
-            args.map((arg: GitArg | GitCommandArg) => arg.replace(/<\w+(-\w+)*>/g, () => params.shift())),
-            options as SpawnSyncOptionsWithStringEncoding
-        ),
+        ...spawnSync("git", args, options as SpawnSyncOptionsWithStringEncoding),
     };
 }
