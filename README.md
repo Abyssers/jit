@@ -47,10 +47,16 @@ Run the git command:
 repo.do("log", ["--oneline"]);
 ```
 
-Transfer parameters by replacing \<xxx\>:
+Pass parameters directly:
 
 ```js
-repo.do("log", ["--pretty=fuller", "--", "<path>"], "src/index.ts");
+repo.do("log", ["--pretty=format:%an", "--", "src/index.ts"]);
+```
+
+Pass parameters by replacing \<xxx\>:
+
+```js
+repo.do("log", ["--pretty=format:<string>", "--", "<path>"], "%an", "src/index.ts");
 ```
 
 > do(command: NullCommand | GitCommand, args: GitArg[] | GitCommandArg[] = [], ...params: string[]): Pick\<GitReturns, "pid" | "stdout"> & { formatted?: ReturnType\<Formatter\> }
