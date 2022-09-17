@@ -1,7 +1,6 @@
 import { existsSync } from "node:fs";
 import { isAbsolute, relative, resolve } from "node:path";
-import { SpawnSyncReturns } from "node:child_process";
-import { git, NullCommand, GitCommand } from "./git";
+import { git, NullCommand, GitCommand, GitReturns } from "./git";
 import { GitArg, GitCommandArg } from "./arg";
 import { formatters, Formatter } from "./format";
 import { assert, errmsgs } from "./error";
@@ -84,7 +83,7 @@ export class Repo {
         command: NullCommand | GitCommand,
         args: GitArg[] | GitCommandArg[] = [],
         ...params: string[]
-    ): Pick<SpawnSyncReturns<string>, "pid" | "stdout"> & { formatted?: ReturnType<Formatter> } {
+    ): Pick<GitReturns, "pid" | "stdout"> & { formatted?: ReturnType<Formatter> } {
         assert(command !== undefined, errmsgs.notDefined("command"));
         assert(typeof command === "string", errmsgs.notStr("command"));
         assert(
