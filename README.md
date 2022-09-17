@@ -2,7 +2,7 @@
 
 <p align="left">
   <a><img src="https://img.shields.io/github/license/Abyssers/jit"></a>
-  <a><img src="https://img.shields.io/github/workflow/status/Abyssers/jit/publishment"></a>
+  <a><img src="https://img.shields.io/github/workflow/status/Abyssers/jit/publish"></a>
   <a><img src="https://img.shields.io/github/issues/Abyssers/jit"></a>
   <a><img src="https://img.shields.io/github/forks/Abyssers/jit"></a>
   <a><img src="https://img.shields.io/github/stars/Abyssers/jit"></a>
