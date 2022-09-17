@@ -94,7 +94,14 @@ export class Repo {
             Array.prototype.every.call(params, (param: string) => typeof param === "string"),
             errmsgs.notStrs("params")
         );
-        const { pid, status, stdout, stderr } = git({ cwd: this.#cwd }, command, args, ...params);
+        const {
+            pid,
+            status,
+            stdout,
+            stderr,
+            args: processedArgs,
+            params: processedParams,
+        } = git({ cwd: this.#cwd }, command, args, ...params);
         assert(status === 0, stderr);
         return {
             pid,
@@ -102,7 +109,7 @@ export class Repo {
             ...(Object.keys(formatters).length === 0 || !Object.prototype.hasOwnProperty.call(formatters, command)
                 ? {}
                 : {
-                      formatted: formatters[command].call(null, stdout, args, ...params),
+                      formatted: formatters[command].call(null, stdout, processedArgs, ...processedParams),
                   }),
         };
     }
