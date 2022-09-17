@@ -46,14 +46,14 @@ jobs:
         runs-on: ubuntu-latest
         environment: ABYSSERS_NOTIFY_ENV
         steps:
-            - name: "[Notify @abysser/matter-lint of Jit Updates]"
+            - name: "[Notify Abyssers/matter-lint of Jit Updates]"
               uses: peter-evans/repository-dispatch@v2
               with:
                   token: ${{ secrets.MORILENCE_GENERAL_PAT }}
                   repository: Abyssers/matter-lint
                   event-type: jit-updated
                   client-payload: '{ "sha": "${{ github.sha }}", "ref": "${{ github.ref }}", "changes": "${{ github.event.changes }}", "version": "${{ needs.publish.outputs.version }}" }'
-            - name: "[Notify @abysser/blog of Jit Updates]"
+            - name: "[Notify Abyssers/blog of Jit Updates]"
               uses: peter-evans/repository-dispatch@v2
               with:
                   token: ${{ secrets.MORILENCE_GENERAL_PAT }}
