@@ -164,7 +164,7 @@ export function git(
     args: GitArg[] | GitCommandArg[] | string[] = [],
     ...params: string[]
 ): GitReturns {
-    options = Object.assign({ encoding: "utf8" }, options);
+    options = Object.assign({ encoding: "utf8", stdio: "pipe" }, options);
     params = Array.prototype.flat
         .call(params, Infinity)
         .filter((param: string) => typeof param === "string")
