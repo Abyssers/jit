@@ -156,7 +156,6 @@ export type GitCommand = MainPorcelainCommand | AncillaryCommand | InteractingCo
 
 export interface GitReturns extends SpawnSyncReturns<string> {
     args: GitArg[] | GitCommandArg[] | string[];
-    params: string[];
 }
 
 export function git(
@@ -176,7 +175,6 @@ export function git(
         .map((arg: GitArg | GitCommandArg | string) => arg.trim().replace(/<\w+(-\w+)*>/g, () => params.shift()));
     return {
         args,
-        params,
         ...spawnSync("git", args, options as SpawnSyncOptionsWithStringEncoding),
     };
 }
