@@ -318,6 +318,24 @@ export type LogCommandArg =
     | "--line-prefix=<prefix>"
     | "--ita-invisible-in-index";
 
+export type ShortLogCommandArg =
+    | "-n"
+    | "--numbered"
+    | "-s"
+    | "--summary"
+    | "-e"
+    | "--email"
+    | "--format=<format>"
+    | "--group=<type>"
+    | "-c"
+    | "--committer"
+    | "-w"
+    | "-w<width>"
+    | "-w<width>,<indents>"
+    | "<revision-range>"
+    | "--"
+    | "<path>";
+
 export type ConfigCommandArg =
     | "--replace-all"
     | "--add"
@@ -424,4 +442,4 @@ export type BranchCommandArg =
     | "<oldbranch>"
     | "<newbranch>";
 
-export type GitCommandArg = "HEAD" | LogCommandArg | ConfigCommandArg | BranchCommandArg;
+export type GitCommandArg = "HEAD" | LogCommandArg | ConfigCommandArg | ShortLogCommandArg | BranchCommandArg;
