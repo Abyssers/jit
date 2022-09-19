@@ -77,4 +77,31 @@ export const formatters: { [key: string]: Formatter } = {
         } catch (err) {}
         return formatted;
     },
+    shortlog: (stdout: GitReturns["stdout"], args: GitReturns["args"] = []): ReturnType<Formatter> => {
+        let formatted: { [key: string]: any } | { [key: string]: any }[];
+        try {
+            if (
+                (args as string[]).some(arg => /^-(n|-numbered|e|-email|ne|en)$/.test(arg)) &&
+                !(args as string[]).every(arg => /^-(s|-summary)$/.test(arg))
+            ) {
+                formatted = stdout.match(/\S+ (<\S+@\S+\.\S+> )?\(\d+\):\n( {6}[^\n]+\n)+\n/g).map(group => ({
+                    name: /^\S+ /.exec(group)[0].trim(),
+                    ...(/ <\S+@\S+\.\S+> /.test(group)
+                        ? { email: / <\S+@\S+\.\S+> /.exec(group)[0].trim().replace(/[<>]/g, "") }
+                        : {}),
+                    commits: group.match(/ {6}[^\n]+\n/g).map(c => c.trim()),
+                }));
+            } else if ((args as string[]).some(arg => /^-(s(n|e|ne|en)?|(n|e|ne|en)s|(esn|nse)|-summary)$/.test(arg))) {
+                formatted = stdout.match(/ *\d+\t\S+( <\S+@\S+\.\S+>)?\n/g).map(group => ({
+                    name: /\t\S+/.exec(group)[0].trim(),
+                    ...(/ <\S+@\S+\.\S+>\n/.test(group)
+                        ? { email: / <\S+@\S+\.\S+>\n/.exec(group)[0].trim().replace(/[<>]/g, "") }
+                        : {}),
+                    summary: Number(/^ *\d+\t/.exec(group)[0].trim()),
+                }));
+            }
+            // eslint-disable-next-line no-empty
+        } catch (err) {}
+        return formatted;
+    },
 };
