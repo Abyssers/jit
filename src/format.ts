@@ -104,4 +104,14 @@ export const formatters: { [key: string]: Formatter } = {
         } catch (err) {}
         return formatted;
     },
+    diff: (stdout: GitReturns["stdout"], args: GitReturns["args"] = []): ReturnType<Formatter> => {
+        let formatted: { [key: string]: any } | { [key: string]: any }[];
+        try {
+            if ((args as GitCommandArg[]).includes("--name-only")) {
+                formatted = stdout.split("\n").filter(name => name !== "");
+            }
+            // eslint-disable-next-line no-empty
+        } catch (err) {}
+        return formatted;
+    },
 };
