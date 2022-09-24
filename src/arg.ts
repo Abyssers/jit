@@ -442,4 +442,55 @@ export type BranchCommandArg =
     | "<oldbranch>"
     | "<newbranch>";
 
-export type GitCommandArg = "HEAD" | LogCommandArg | ConfigCommandArg | ShortLogCommandArg | BranchCommandArg;
+export type DiffCommandArg =
+    | "-p"
+    | "-u"
+    | "--patch"
+    | "-s"
+    | "-U<n>"
+    | "--unified=<n>"
+    | "--output=<file>"
+    | "--output-indicator-new=<char>"
+    | "--output-indicator-old=<char>"
+    | "--output-indicator-context=<char>"
+    | "--raw"
+    | "--patch-with-raw"
+    | "--indent-heuristic"
+    | "--no-indent-heuristic"
+    | "--minimal"
+    | "--patience"
+    | "--histogram"
+    | "--anchored=<text>"
+    | "--diff-algorithm=patience"
+    | "--diff-algorithm=minimal"
+    | "--diff-algorithm=histogram"
+    | "--diff-algorithm=myers"
+    | "--stat"
+    | "--stat=<width>"
+    | "--stat=<width>,<name-width>"
+    | "--stat=<width>,<name-width>,<count>"
+    | "--compact-summary"
+    | "--numstat"
+    | "--shortstat"
+    | "-X"
+    | "-X<params>"
+    | "--dirstat"
+    | "--dirstat=<params>"
+    | "--cumulative"
+    | "--dirstat-by-file"
+    | "--dirstat-by-file=<params>"
+    | "--summary"
+    | "--patch-with-stat"
+    | "-z"
+    | "--name-only"
+    | "--name-status"
+    | "--submodule"
+    | "--submodule=<format>";
+
+export type GitCommandArg =
+    | "HEAD"
+    | LogCommandArg
+    | ConfigCommandArg
+    | ShortLogCommandArg
+    | BranchCommandArg
+    | DiffCommandArg;
